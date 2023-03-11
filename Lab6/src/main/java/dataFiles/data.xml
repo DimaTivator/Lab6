@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HumanBeings>
+    <HumanBeing>
+        <name>John Doe</name>
+        <coordinates>
+            <x>10</x>
+            <y>50</y>
+        </coordinates>
+        <realHero>false</realHero>
+        <hasToothpick>true</hasToothpick>
+        <weaponType>KNIFE</weaponType>
+        <mood>SADNESS</mood>
+        <car>
+            <cool>true</cool>
+        </car>
+    </HumanBeing>
+    <HumanBeing>
+        <name>ABOBA</name>
+        <creationDate>2023-02-01</creationDate>
+        <coordinates>
+            <x>30</x>
+            <y>20</y>
+        </coordinates>
+        <realHero>false</realHero>
+        <hasToothpick>true</hasToothpick>
+        <impactSpeed>50.0</impactSpeed>
+        <weaponType>KNIFE</weaponType>
+        <mood>RAGE</mood>
+        <car>
+            <name>aboba</name>
+        </car>
+    </HumanBeing>
+</HumanBeings>
