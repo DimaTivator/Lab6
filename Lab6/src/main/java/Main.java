@@ -8,7 +8,7 @@ import io.consoleIO.ConfirmationReader;
 import io.fileIO.in.HumanBeingXMLParser;
 import io.fileIO.in.Parser;
 import io.fileIO.out.HumanBeingXMLWriter;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -70,7 +70,7 @@ public class Main {
 
         while (true) {
             try {
-                commandsExecutor.execute(commandParser.readObjectFromConsole(), "console", scanner);
+                commandsExecutor.execute(commandParser.readObjectFromConsole());
             } catch (NoSuchElementException e) {
                 break;
             } catch (Exception e) {

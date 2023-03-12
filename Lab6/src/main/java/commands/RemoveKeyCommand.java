@@ -2,7 +2,7 @@ package commands;
 
 import collectionManagement.CollectionManager;
 import exceptions.commandExceptions.InvalidArgumentsException;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.util.Map;
 

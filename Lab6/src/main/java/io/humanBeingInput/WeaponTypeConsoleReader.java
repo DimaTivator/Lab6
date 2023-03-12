@@ -2,7 +2,7 @@ package io.humanBeingInput;
 
 import exceptions.InvalidInputException;
 import io.consoleIO.ConsoleReader;
-import storedClasses.WeaponType;
+import collectionClasses.WeaponType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

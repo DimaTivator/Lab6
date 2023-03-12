@@ -1,11 +1,13 @@
-package storedClasses;
+package collectionClasses;
 
 /**
  Class representing a Car object.
  */
 public class Car implements Comparable<Car> {
+
     /** The name of the car. Can be null. */
     private String name;
+
     /** The coolness of the car. Can be null. */
     private Boolean cool;
 
@@ -14,7 +16,7 @@ public class Car implements Comparable<Car> {
         this.cool = cool;
     }
 
-    public Car() {};
+    public Car() {}
 
     /**
      * Gets the name of the car.

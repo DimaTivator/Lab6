@@ -1,4 +1,4 @@
-package storedClasses;
+package collectionClasses;
 
 import exceptions.InvalidCoordinatesException;
 

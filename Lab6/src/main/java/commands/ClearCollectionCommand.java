@@ -1,7 +1,7 @@
 package commands;
 
 import collectionManagement.CollectionManager;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.util.Map;
 

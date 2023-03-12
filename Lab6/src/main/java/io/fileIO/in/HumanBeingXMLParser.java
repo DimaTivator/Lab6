@@ -15,7 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import storedClasses.*;
+import collectionClasses.*;
 
 /**
  * The class HumanBeingXMLParser extends the Parser class and reads data from a specified XML file
@@ -96,7 +96,7 @@ public class HumanBeingXMLParser extends Parser<LinkedHashMap<Long, HumanBeing>>
                             try {
                                 java.time.LocalDate date = java.time.LocalDate.parse(eElement.getElementsByTagName("creationDate").item(0).getTextContent());
                                 obj.setCreationDate(date);
-                            } catch (Exception ignored) {};
+                            } catch (Exception ignored) {}
 
                             try {
                                 boolean realHero = Boolean.parseBoolean(eElement.getElementsByTagName("realHero").item(0).getTextContent());

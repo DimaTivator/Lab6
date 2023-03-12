@@ -3,9 +3,6 @@ package commands;
 import collectionManagement.CollectionManager;
 import collectionManagement.CollectionPrinter;
 import exceptions.commandExceptions.InvalidArgumentsException;
-import storedClasses.HumanBeing;
-
-import javax.lang.model.type.UnionType;
 
 /**
  * The Command class is an abstract class that serves as a blueprint for various command objects
@@ -57,7 +54,7 @@ public abstract class CommandTemplate implements Command {
     /**
      * Default constructor.
      */
-    public CommandTemplate() {};
+    public CommandTemplate() {}
 
     /**
      * Gets the CollectionManager object used in the Command.

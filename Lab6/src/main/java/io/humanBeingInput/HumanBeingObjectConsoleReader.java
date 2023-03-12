@@ -2,7 +2,7 @@ package io.humanBeingInput;
 
 import exceptions.InvalidCoordinatesException;
 import exceptions.InvalidInputException;
-import storedClasses.*;
+import collectionClasses.*;
 
 import java.util.Scanner;
 

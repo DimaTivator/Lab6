@@ -3,8 +3,8 @@ package commands;
 import auxiliaryClasses.ConsoleColors;
 import collectionManagement.CollectionManager;
 import exceptions.EmptyCollectionException;
-import storedClasses.HumanBeing;
-import storedClasses.Mood;
+import collectionClasses.HumanBeing;
+import collectionClasses.Mood;
 
 import java.util.ArrayList;
 import java.util.HashMap;

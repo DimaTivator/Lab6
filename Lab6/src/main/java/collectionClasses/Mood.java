@@ -1,4 +1,4 @@
-package storedClasses;
+package collectionClasses;
 
 /**
  * Enum representing the possible moods of a {@link HumanBeing}.
@@ -7,5 +7,5 @@ public enum Mood {
     SADNESS,
     LONGING,
     APATHY,
-    RAGE;
+    RAGE
 }

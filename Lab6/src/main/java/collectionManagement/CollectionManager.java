@@ -1,7 +1,6 @@
 package collectionManagement;
 
-import commands.*;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,9 +1,8 @@
 package io.humanBeingInput;
 
-import exceptions.InvalidCoordinatesException;
 import exceptions.InvalidInputException;
 import io.fileIO.in.FileReader;
-import storedClasses.*;
+import collectionClasses.*;
 
 import java.util.Scanner;
 

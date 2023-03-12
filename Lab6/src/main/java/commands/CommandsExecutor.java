@@ -3,16 +3,14 @@ package commands;
 import collectionManagement.CollectionManager;
 import collectionManagement.CollectionPrinter;
 import collectionManagement.CollectionSaver;
-import dataStructures.Pair;
+import dataStructures.Triplet;
 import exceptions.ScriptsRecursionException;
 import exceptions.commandExceptions.InvalidArgumentsException;
+import io.consoleIO.CommandParser;
 import io.fileIO.out.HumanBeingXMLWriter;
-import io.humanBeingInput.CarObjectConsoleReader;
-import io.humanBeingInput.CarObjectFileReader;
 import io.humanBeingInput.HumanBeingObjectConsoleReader;
 import io.humanBeingInput.HumanBeingObjectFileReader;
-import storedClasses.Car;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.util.*;
 
@@ -21,8 +19,6 @@ import java.util.*;
  * It uses two objects of the `CollectionPrinter` and `CollectionManager` classes.
  */
 public class CommandsExecutor {
-
-    private boolean collectionChanged = false;
 
     /**
      * The `collectionPrinter` object is used for printing various information about the collection.
@@ -39,17 +35,17 @@ public class CommandsExecutor {
      */
     private final Set<String> used_scripts = new HashSet<>();
 
-    private final ArrayList<String> humanBeingCommandsList = new ArrayList<>();
+    private final ArrayList<String> objectCommandsList = new ArrayList<>();
 
     private final ArrayList<String> lineArgCommands = new ArrayList<>();
 
     private final Map<String, Command> commandsTable = new HashMap<>();
 
     private void fillCommandLists() {
-        humanBeingCommandsList.add("insert");
-        humanBeingCommandsList.add("update");
-        humanBeingCommandsList.add("remove_lower");
-        humanBeingCommandsList.add("replace_if_greater");
+
+        ArrayList<String> humanBeingCommandsList = CommandParser.getHumanBeingCommandsList();
+        objectCommandsList.addAll(humanBeingCommandsList);
+        objectCommandsList.add("filter_less_than_car");
 
         lineArgCommands.add("remove_key");
         lineArgCommands.add("execute_script");
@@ -89,38 +85,26 @@ public class CommandsExecutor {
         fillCommandLists();
     }
 
-    /**
-     * Returns a `HumanBeing` object read from the console.
-     *
-     * @return the `HumanBeing` object read from the console
-     */
-    private HumanBeing getHumanBeingFromConsole() {
-        HumanBeingObjectConsoleReader humanBeingObjectReader = new HumanBeingObjectConsoleReader();
-        return humanBeingObjectReader.readHumanBeingFromConsole();
-    }
-
-    /**
-     * This method reads a `HumanBeing` object from a file and returns it.
-     *
-     * @param fileScanner the `Scanner` instance that reads the file
-     * @return the `HumanBeing` object read from the file
-     */
-    private HumanBeing getHumanBeingFromFile(Scanner fileScanner) throws Exception {
-        HumanBeingObjectFileReader humanBeingObjectFileReader = new HumanBeingObjectFileReader(fileScanner);
-        return humanBeingObjectFileReader.readHumanBeingFromFile();
+    private boolean checkCollectionChanges(Map<Long, HumanBeing> collectionBeforeCommand, Map<Long, HumanBeing> collectionAfterCommand) {
+        boolean equals = (collectionAfterCommand.size() == collectionBeforeCommand.size());
+        for (Long key : collectionAfterCommand.keySet()) {
+            if (!collectionBeforeCommand.containsKey(key) || !collectionBeforeCommand.get(key).equals(collectionAfterCommand.get(key))) {
+                equals = false;
+            }
+        }
+        return equals;
     }
 
     /**
      Executes the given command.
 
-     @param commandPair a Pair of command name and its arguments
-     @param stream source of the input data ("console" or "file")
-     @param scanner the Scanner object to read input from
+     @param commandTriplet a Triplet of command name and its arguments
      @throws Exception if an error occurs during the execution of the command
      */
-    public void execute(Pair<String, String[]> commandPair, String stream, Scanner scanner) throws Exception {
-        String commandName = commandPair.getFirst();
-        String[] args = commandPair.getSecond();
+    public void execute(Triplet<String, String[], Object> commandTriplet) throws Exception {
+        String commandName = commandTriplet.getFirst();
+        String[] args = commandTriplet.getSecond();
+        Object object = commandTriplet.getThird();
 
         Map<Long, HumanBeing> dataBeforeCommand = collectionManager.getCollection();
 
@@ -142,93 +126,28 @@ public class CommandsExecutor {
             command.execute();
 
             used_scripts.clear();
-        }
 
-        else if (commandName.equals("filter_less_than_car")) {
-
-            if (args.length != 0) {
-                throw new InvalidArgumentsException("Something wrong with command arguments :(\n" +
-                        "Please check that you do not enter any arguments in the same line with the command");
-            }
-            try {
-                Car car;
-
-                if (stream.equals("console")) {
-                    CarObjectConsoleReader carObjectReader = new CarObjectConsoleReader();
-                    car = carObjectReader.readObjectFromConsole();
-                } else {
-                    CarObjectFileReader carObjectFileReader = new CarObjectFileReader(scanner);
-                    car = carObjectFileReader.readData();
+        } else {
+            if (lineArgCommands.contains(commandName)) {
+                if (args.length == 0) {
+                    throw new InvalidArgumentsException("Something wrong with command arguments :(\n" +
+                            "Please check that you do not enter any arguments in the same line with the command");
                 }
-
-                command.setValue(car);
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                throw new InvalidArgumentsException();
-            }
-
-            command.execute();
-        }
-        else if (commandName.equals("save")) {
-
-            if (args.length == 0) {
-                command.setArg("humanbeing.xml");
-                collectionChanged = false;
-            } else if (args.length == 1) {
                 command.setArg(args[0]);
-                collectionChanged = false;
-            } else {
-                throw new InvalidArgumentsException();
+            }
+            if (objectCommandsList.contains(commandName)) {
+                command.setValue(object);
             }
 
             command.execute();
         }
-        else if (lineArgCommands.contains(commandName)) {
-            if (args.length != 1) {
-                throw new InvalidArgumentsException("Something wrong with command arguments :(\n" +
-                        "Please check that you do not enter any arguments in the same line with the command");
-            }
-
-            try {
-                command.setArg(args[0]);
-                if (humanBeingCommandsList.contains(commandName)) {
-                    if (stream.equals("console")) {
-                        command.setValue(getHumanBeingFromConsole());
-                    } else {
-                        command.setValue(getHumanBeingFromFile(scanner));
-                    }
-                }
-                command.execute();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-        }
-        else if (humanBeingCommandsList.contains(commandName)) {
-            if (stream.equals("console")) {
-                command.setValue(getHumanBeingFromConsole());
-            } else {
-                command.setValue(getHumanBeingFromFile(scanner));
-            }
-            command.execute();
-        }
-        else {
-            command.execute();
-        }
 
 
+        // check if there are changes in collection values
         Map<Long, HumanBeing> dataAfterCommand = collectionManager.getCollection();
+        boolean collectionChanged = checkCollectionChanges(dataBeforeCommand, dataAfterCommand);
 
-        boolean equals = (dataAfterCommand.size() == dataBeforeCommand.size());
-        for (Long key : dataAfterCommand.keySet()) {
-            if (!dataBeforeCommand.containsKey(key) || !dataBeforeCommand.get(key).equals(dataAfterCommand.get(key))) {
-                equals = false;
-            }
-        }
-
-        collectionChanged = equals;
-
+        // setting flag to exitCommand if there are changes
         ExitCommand exitCommand = (ExitCommand) commandsTable.get("exit");
         exitCommand.setCollectionChanged(collectionChanged);
 

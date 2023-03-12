@@ -1,8 +1,5 @@
 package collectionManagement;
 
-import commands.*;
-import storedClasses.*;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,7 +14,7 @@ public class CollectionPrinter {
     /**
      * A map of available commands and their descriptions.
      */
-    private Map<String, String> commands = new LinkedHashMap<>();
+    private final Map<String, String> commands = new LinkedHashMap<>();
 
     /**
      * Fills the commands map with available commands and their descriptions.

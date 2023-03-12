@@ -2,7 +2,7 @@ package commands;
 
 import collectionManagement.CollectionManager;
 import exceptions.EmptyCollectionException;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.util.Map;
 

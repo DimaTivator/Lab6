@@ -3,8 +3,8 @@ package commands;
 import auxiliaryClasses.ConsoleColors;
 import collectionManagement.CollectionManager;
 import exceptions.EmptyCollectionException;
-import storedClasses.Car;
-import storedClasses.HumanBeing;
+import collectionClasses.Car;
+import collectionClasses.HumanBeing;
 
 import java.util.Map;
 

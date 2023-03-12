@@ -2,7 +2,7 @@ package io.humanBeingInput;
 
 import exceptions.InvalidInputException;
 import io.consoleIO.ConsoleReader;
-import storedClasses.Car;
+import collectionClasses.Car;
 
 import java.util.Scanner;
 

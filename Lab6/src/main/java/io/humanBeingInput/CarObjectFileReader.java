@@ -1,7 +1,7 @@
 package io.humanBeingInput;
 
 import io.fileIO.in.FileReader;
-import storedClasses.Car;
+import collectionClasses.Car;
 
 import java.util.Scanner;
 

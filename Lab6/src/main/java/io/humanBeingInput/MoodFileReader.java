@@ -2,7 +2,7 @@ package io.humanBeingInput;
 
 import exceptions.InvalidInputException;
 import io.fileIO.in.FileReader;
-import storedClasses.Mood;
+import collectionClasses.Mood;
 
 import java.util.ArrayList;
 import java.util.Arrays;

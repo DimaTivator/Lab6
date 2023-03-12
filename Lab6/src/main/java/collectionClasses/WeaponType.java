@@ -1,4 +1,4 @@
-package storedClasses;
+package collectionClasses;
 
 /**
  Enum representing the weapon types that a {@link HumanBeing} can have.
@@ -6,5 +6,5 @@ package storedClasses;
 public enum WeaponType {
     AXE,
     RIFLE,
-    KNIFE;
+    KNIFE
 }

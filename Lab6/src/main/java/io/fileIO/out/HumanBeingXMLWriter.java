@@ -1,7 +1,7 @@
 package io.fileIO.out;
 
 import auxiliaryClasses.ConsoleColors;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Map;

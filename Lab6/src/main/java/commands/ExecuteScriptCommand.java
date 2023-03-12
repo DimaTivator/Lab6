@@ -27,7 +27,7 @@ public class ExecuteScriptCommand extends CommandTemplate {
      */
     @Override
     public void execute() throws Exception {
-        ScriptExecutor scriptExecutor = new ScriptExecutor(getCollectionManager(), getCollectionPrinter());
+        ScriptExecutor scriptExecutor = new ScriptExecutor();
         scriptExecutor.executeScript(getArg(), commandsExecutor);
     }
 }

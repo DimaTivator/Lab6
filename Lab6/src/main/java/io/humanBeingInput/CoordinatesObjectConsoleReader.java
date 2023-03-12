@@ -3,7 +3,7 @@ package io.humanBeingInput;
 import exceptions.InvalidCoordinatesException;
 import exceptions.InvalidInputException;
 import io.consoleIO.ConsoleReader;
-import storedClasses.Coordinates;
+import collectionClasses.Coordinates;
 
 import java.util.Scanner;
 

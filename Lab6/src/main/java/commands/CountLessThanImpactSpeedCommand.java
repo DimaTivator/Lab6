@@ -4,7 +4,7 @@ import auxiliaryClasses.ConsoleColors;
 import collectionManagement.CollectionManager;
 import exceptions.EmptyCollectionException;
 import exceptions.commandExceptions.InvalidArgumentsException;
-import storedClasses.HumanBeing;
+import collectionClasses.HumanBeing;
 
 import java.util.Map;
 
