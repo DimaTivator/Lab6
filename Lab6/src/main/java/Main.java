@@ -1,14 +1,14 @@
-import auxiliaryClasses.ConsoleColors;
-import collectionManagement.CollectionManager;
-import collectionManagement.CollectionPrinter;
-import collectionManagement.CollectionSaver;
-import commands.CommandsExecutor;
-import io.consoleIO.CommandParser;
-import io.consoleIO.ConfirmationReader;
-import io.fileIO.in.HumanBeingXMLParser;
-import io.fileIO.in.Parser;
-import io.fileIO.out.HumanBeingXMLWriter;
-import collectionClasses.HumanBeing;
+import commonModule.auxiliaryClasses.ConsoleColors;
+import commonModule.collectionManagement.CollectionManager;
+import commonModule.collectionManagement.CollectionPrinter;
+import commonModule.collectionManagement.CollectionSaver;
+import server.commands.CommandsExecutor;
+import commonModule.io.consoleIO.CommandParser;
+import commonModule.io.consoleIO.ConfirmationReader;
+import commonModule.io.fileIO.in.HumanBeingXMLParser;
+import commonModule.io.fileIO.in.Parser;
+import commonModule.io.fileIO.out.HumanBeingXMLWriter;
+import commonModule.collectionClasses.HumanBeing;
 
 import java.io.File;
 import java.util.LinkedHashMap;
