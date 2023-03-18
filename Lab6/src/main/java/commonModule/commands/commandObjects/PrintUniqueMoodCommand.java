@@ -1,13 +1,13 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.EmptyCollectionException;
 import commonModule.collectionClasses.HumanBeing;
 import commonModule.collectionClasses.Mood;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +28,8 @@ public class PrintUniqueMoodCommand extends CommandTemplate implements CommandWi
     public PrintUniqueMoodCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public PrintUniqueMoodCommand() {}
 
     /**
      Overridden method from the Command class. This method is called when the "print_unique_mood" command is executed.

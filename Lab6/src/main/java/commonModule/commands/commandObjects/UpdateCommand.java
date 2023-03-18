@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import commonModule.commands.CommandTemplate;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -22,6 +22,8 @@ public class UpdateCommand extends CommandTemplate implements CommandWithRespons
         super(collectionManager);
     }
 
+    public UpdateCommand() {}
+
     @Override
     public void setArgs(String[] args) throws InvalidArgumentsException {
         Long id;
@@ -30,19 +32,6 @@ public class UpdateCommand extends CommandTemplate implements CommandWithRespons
             super.setArgs(new String[]{ String.valueOf(id) });
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException("The key must be a number! Please Try to enter a command again");
-        }
-
-        Map <Long, HumanBeing> data = getCollectionManager().getCollection();
-        boolean containsId = false;
-        for (Long key : data.keySet()) {
-            if (id.equals(data.get(key).getId())) {
-                containsId = true;
-                break;
-            }
-        }
-
-        if (!containsId) {
-            throw new InvalidArgumentsException("Can't find the entered id in collection:(\nPlease try to enter the command again");
         }
     }
 
@@ -55,8 +44,21 @@ public class UpdateCommand extends CommandTemplate implements CommandWithRespons
         Long id = Long.parseLong(getArgs()[0]);
         HumanBeing newValue = (HumanBeing) getValue();
 
+        boolean containsId = false;
         for (Long key : data.keySet()) {
             if (id.equals(data.get(key).getId())) {
+                containsId = true;
+                break;
+            }
+        }
+
+        if (!containsId) {
+            throw new InvalidArgumentsException("Can't find the entered id in collection:(\nPlease try to enter the command again");
+        }
+
+        for (Long key : data.keySet()) {
+            if (id.equals(data.get(key).getId())) {
+                newValue.setId(data.get(key).getId());
                 data.put(key, newValue);
                 break;
             }

@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.EmptyCollectionException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -25,6 +25,8 @@ public class RemoveLowerCommand extends CommandTemplate implements CommandWithRe
     public RemoveLowerCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public RemoveLowerCommand() {}
 
     /**
      * Removes all key-value pairs in the collection where the value is less than the specified human being.

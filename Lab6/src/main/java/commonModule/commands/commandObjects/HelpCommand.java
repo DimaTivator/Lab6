@@ -1,10 +1,10 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
-import commonModule.collectionManagement.CollectionPrinter;
+import commonModule.commands.CommandTemplate;
+import server.collectionManagement.CollectionPrinter;
 import commonModule.dataStructures.Response;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -23,6 +23,8 @@ public class HelpCommand extends CommandTemplate implements CommandWithResponse 
     public HelpCommand(CollectionPrinter collectionPrinter) {
         super(collectionPrinter);
     }
+
+    public HelpCommand() {}
 
     /**
      This method displays the available commands in the system and their descriptions.

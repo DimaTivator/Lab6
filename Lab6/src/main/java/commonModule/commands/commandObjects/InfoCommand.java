@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
-import commonModule.collectionManagement.CollectionManager;
-import commonModule.collectionManagement.CollectionPrinter;
+import commonModule.commands.CommandTemplate;
+import server.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionPrinter;
 import commonModule.dataStructures.Response;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandWithResponse;
 
 /**
  * InfoCommand is a class that provides information about the collection,
@@ -23,6 +23,8 @@ public class InfoCommand extends CommandTemplate implements CommandWithResponse 
     public InfoCommand(CollectionManager collectionManager, CollectionPrinter collectionPrinter) {
         super(collectionManager, collectionPrinter);
     }
+
+    public InfoCommand() {}
 
     /**
      * Prints the information about the collection, including the type of the collection, the date of initialization,

@@ -1,8 +1,8 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
+import commonModule.commands.CommandTemplate;
 import commonModule.io.consoleIO.ConfirmationReader;
-import server.commands.CommandTemplate;
 
 import java.io.File;
 

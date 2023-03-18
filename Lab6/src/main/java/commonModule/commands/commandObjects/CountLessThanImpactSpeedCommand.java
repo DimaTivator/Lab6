@@ -1,13 +1,13 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.EmptyCollectionException;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -28,6 +28,8 @@ public class CountLessThanImpactSpeedCommand extends CommandTemplate implements 
     public CountLessThanImpactSpeedCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public CountLessThanImpactSpeedCommand() {}
 
     @Override
     public void setArgs(String[] args) throws InvalidArgumentsException {

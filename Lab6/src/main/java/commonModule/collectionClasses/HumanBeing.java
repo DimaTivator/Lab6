@@ -13,7 +13,7 @@ public class HumanBeing implements Comparable<HumanBeing>, Serializable {
     * Unique identifier for this HumanBeing object. Cannot be null.
     * Value must be greater than 0. Value is generated automatically.
     */
-    private final Long id;
+    private Long id;
     /**
      Name of the human being. Cannot be null. String value cannot be empty.
      */
@@ -98,6 +98,15 @@ public class HumanBeing implements Comparable<HumanBeing>, Serializable {
         creationDate = java.time.LocalDate.now();
         id = generateId();
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void updateId() {
+        id = ++HumanBeing.lastID;
+    }
+
 
     /**
      * Returns the ID of this HumanBeing object.

@@ -1,4 +1,4 @@
-package commonModule.collectionManagement;
+package server.collectionManagement;
 
 import commonModule.io.fileIO.out.HumanBeingXMLWriter;
 

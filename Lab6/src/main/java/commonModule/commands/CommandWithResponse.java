@@ -1,4 +1,4 @@
-package server.commands;
+package commonModule.commands;
 
 import commonModule.dataStructures.Response;
 

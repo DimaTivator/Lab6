@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -23,6 +23,8 @@ public class RemoveKeyCommand extends CommandTemplate implements CommandWithResp
     public RemoveKeyCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public RemoveKeyCommand() {}
 
     @Override
     public void setArgs(String[] args) throws InvalidArgumentsException {

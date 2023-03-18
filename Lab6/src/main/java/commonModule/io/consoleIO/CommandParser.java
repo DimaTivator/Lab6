@@ -1,8 +1,12 @@
 package commonModule.io.consoleIO;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
+import commonModule.commands.Command;
+import commonModule.commands.commandObjects.*;
 import commonModule.dataStructures.Pair;
 import commonModule.dataStructures.Triplet;
+import commonModule.exceptions.InvalidCoordinatesException;
+import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.io.humanBeingInput.CarObjectConsoleReader;
 import commonModule.io.humanBeingInput.CarObjectFileReader;
 import commonModule.exceptions.InvalidInputException;
@@ -18,6 +22,10 @@ import java.util.*;
  */
 public class CommandParser extends ConsoleReader<Triplet<String, String[], Object>> {
 
+    public CommandParser() {
+        fillCommandLists();
+    }
+
     /**
      * The {@code commandsList} ArrayList stores a list of supported commands.
      */
@@ -29,8 +37,6 @@ public class CommandParser extends ConsoleReader<Triplet<String, String[], Objec
         add("update");
         add("remove_key");
         add("clear");
-        add("save");
-        add("save");
         add("execute_script");
         add("exit");
         add("remove_lower");
@@ -47,6 +53,41 @@ public class CommandParser extends ConsoleReader<Triplet<String, String[], Objec
         add("remove_lower");
         add("replace_if_greater");
     }};
+
+    private final ArrayList<String> objectCommandsList = new ArrayList<>();
+
+    private final ArrayList<String> lineArgCommands = new ArrayList<>();
+
+    private final Map<String, Command> commandsTable = new HashMap<>();
+
+    private void fillCommandLists() {
+
+        ArrayList<String> humanBeingCommandsList = CommandParser.getHumanBeingCommandsList();
+        objectCommandsList.addAll(humanBeingCommandsList);
+        objectCommandsList.add("filter_less_than_car");
+
+        lineArgCommands.add("remove_key");
+        lineArgCommands.add("execute_script");
+        lineArgCommands.add("remove_greater_key");
+        lineArgCommands.add("count_less_than_impact_speed");
+        lineArgCommands.add("insert");
+        lineArgCommands.add("update");
+        lineArgCommands.add("replace_if_greater");
+
+        commandsTable.put("help", new HelpCommand());
+        commandsTable.put("info", new InfoCommand());
+        commandsTable.put("show", new ShowCommand());
+        commandsTable.put("insert", new InsertCommand());
+        commandsTable.put("update", new UpdateCommand());
+        commandsTable.put("remove_key", new RemoveKeyCommand());
+        commandsTable.put("clear", new ClearCollectionCommand());
+        commandsTable.put("remove_lower", new RemoveLowerCommand());
+        commandsTable.put("replace_if_greater", new ReplaceIfGreaterCommand());
+        commandsTable.put("remove_greater_key", new RemoveGreaterKeyCommand());
+        commandsTable.put("count_less_than_impact_speed", new CountLessThanImpactSpeedCommand());
+        commandsTable.put("filter_less_than_car", new FilterLessThanCarCommand());
+        commandsTable.put("print_unique_mood", new PrintUniqueMoodCommand());
+    }
 
     public static ArrayList<String> getHumanBeingCommandsList() {
         return humanBeingCommandsList;
@@ -92,7 +133,7 @@ public class CommandParser extends ConsoleReader<Triplet<String, String[], Objec
     }
 
 
-    private Pair<String, String[]> getCommand(Scanner scanner) throws NoSuchCommandException {
+    public Pair<String, String[]> getCommand(Scanner scanner) throws NoSuchCommandException {
         List<String> line = Arrays.stream(scanner.nextLine().strip().replaceAll(" +", " ").split(" ")).toList();
 
         // System.out.println(line);
@@ -114,7 +155,7 @@ public class CommandParser extends ConsoleReader<Triplet<String, String[], Objec
      * @return a Pair of command and arguments
      * @throws NoSuchCommandException if the entered command is not found in the list of supported commands
      */
-    public Triplet<String, String[], Object> parseCommandFromFile(Scanner fileScanner) throws Exception {
+    public Triplet<String, String[], Object> parseCommandFromFile(Scanner fileScanner) throws NoSuchCommandException, InvalidInputException, InvalidCoordinatesException {
 
         Pair<String, String[]> input = getCommand(fileScanner);
         String commandName = input.getFirst();
@@ -132,5 +173,28 @@ public class CommandParser extends ConsoleReader<Triplet<String, String[], Objec
         }
 
         return new Triplet<>(commandName, args, object);
+    }
+
+
+    public Command pack(Triplet<String, String[], Object> parsedCommand) throws InvalidArgumentsException {
+
+        String commandName = parsedCommand.getFirst();
+        String[] args = parsedCommand.getSecond();
+        Object object = parsedCommand.getThird();
+
+        Command command = commandsTable.get(commandName);
+
+        if (lineArgCommands.contains(commandName)) {
+            if (args.length == 0) {
+                throw new InvalidArgumentsException("Something wrong with command arguments :(\n" +
+                        "Please check that you do not enter any arguments in the same line with the command");
+            }
+            command.setArgs(args);
+        }
+        if (objectCommandsList.contains(commandName)) {
+            command.setValue(object);
+        }
+
+        return command;
     }
 }

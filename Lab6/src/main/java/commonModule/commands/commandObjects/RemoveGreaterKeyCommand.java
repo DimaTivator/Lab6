@@ -1,12 +1,12 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.EmptyCollectionException;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -26,6 +26,8 @@ public class RemoveGreaterKeyCommand extends CommandTemplate implements CommandW
     public RemoveGreaterKeyCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public RemoveGreaterKeyCommand() {}
 
     @Override
     public void setArgs(String[] args) throws InvalidArgumentsException {

@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import commonModule.commands.CommandTemplate;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.EmptyCollectionException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -23,6 +23,8 @@ public class ShowCommand extends CommandTemplate implements CommandWithResponse 
     public ShowCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public ShowCommand() {}
 
     /**
      * Overrides the execute method to show the data of the collection.

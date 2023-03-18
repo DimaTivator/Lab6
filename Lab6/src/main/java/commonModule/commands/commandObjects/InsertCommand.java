@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import commonModule.commands.CommandTemplate;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -24,6 +24,8 @@ public class InsertCommand extends CommandTemplate implements CommandWithRespons
         super(collectionManager);
     }
 
+    public InsertCommand() {}
+
     @Override
     public void setArgs(String[] args) throws InvalidArgumentsException {
         Long key;
@@ -32,10 +34,6 @@ public class InsertCommand extends CommandTemplate implements CommandWithRespons
             super.setArgs(new String[]{ String.valueOf(key) });
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException("The key must be a number! Please Try to enter a command again");
-        }
-
-        if (getCollectionManager().getCollection().containsKey(key)) {
-            throw new InvalidArgumentsException("Collection already contains this key!\nPlease try to enter a command again");
         }
     }
 
@@ -46,7 +44,15 @@ public class InsertCommand extends CommandTemplate implements CommandWithRespons
     @Override
     public void execute() throws InvalidArgumentsException {
         Map<Long, HumanBeing> data = getCollectionManager().getCollection();
-        data.put(Long.parseLong(getArgs()[0]), (HumanBeing) getValue());
+        Long key = Long.parseLong(getArgs()[0]);
+
+        if (data.containsKey(key)) {
+            throw new InvalidArgumentsException("Collection already contains this key!\nPlease try to enter a command again");
+        }
+
+        HumanBeing value = (HumanBeing) getValue();
+        data.put(key, value);
+        value.updateId();
     }
 
     @Override

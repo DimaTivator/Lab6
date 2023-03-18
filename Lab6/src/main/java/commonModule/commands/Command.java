@@ -1,6 +1,8 @@
-package server.commands;
+package commonModule.commands;
 
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
+import server.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionPrinter;
 
 public interface Command {
 
@@ -13,4 +15,8 @@ public interface Command {
     Object getValue();
 
     void setValue(Object value);
+
+    void setCollectionManager(CollectionManager collectionManager);
+
+    void setCollectionPrinter(CollectionPrinter collectionPrinter);
 }

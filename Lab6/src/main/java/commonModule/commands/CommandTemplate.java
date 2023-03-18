@@ -1,15 +1,17 @@
-package server.commands;
+package commonModule.commands;
 
-import commonModule.collectionManagement.CollectionManager;
-import commonModule.collectionManagement.CollectionPrinter;
+import server.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionPrinter;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
+
+import java.io.Serializable;
 
 /**
  * The Command class is an abstract class that serves as a blueprint for various command objects
  * used in the program. Each command object represents an action that can be performed on the
  * collection, such as adding or removing elements, printing elements, and so on.
  */
-public abstract class CommandTemplate implements Command {
+public abstract class CommandTemplate implements Command, Serializable {
 
     /**
      * The CollectionManager object that will be used to perform operations on the collection.

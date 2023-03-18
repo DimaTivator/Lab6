@@ -1,4 +1,4 @@
-package commonModule.collectionManagement;
+package server.collectionManagement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

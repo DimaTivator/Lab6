@@ -1,11 +1,11 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -24,6 +24,8 @@ public class ReplaceIfGreaterCommand extends CommandTemplate implements CommandW
     public ReplaceIfGreaterCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public ReplaceIfGreaterCommand() {}
 
     @Override
     public void setArgs(String[] args) throws InvalidArgumentsException {
@@ -46,6 +48,7 @@ public class ReplaceIfGreaterCommand extends CommandTemplate implements CommandW
         HumanBeing value = (HumanBeing) getValue();
 
         if (value.compareTo(data.get(key)) > 0) {
+            value.updateId();
             data.put(key, value);
         }
     }

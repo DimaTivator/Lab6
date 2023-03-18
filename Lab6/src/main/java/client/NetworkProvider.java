@@ -6,23 +6,22 @@ import commonModule.dataStructures.Response;
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
 
 public class NetworkProvider {
 
     private final int BUFFER_SIZE = 1024 * 1024;
 
-    InetSocketAddress socketAddress;
-    DatagramChannel datagramChannel;
-    DatagramSocket datagramSocket;
+    private final DatagramSocket datagramSocket;
+
+    private final int port;
 
 
-    public NetworkProvider(String address, int port) throws SocketException, IOException {
-        socketAddress = new InetSocketAddress(address, port);
-        datagramChannel = DatagramChannel.open();
-        datagramSocket = datagramChannel.socket();
+    public NetworkProvider(String address, int port) throws IOException {
 
-        datagramChannel.configureBlocking(false);
+        this.port = port;
+
+        datagramSocket = new DatagramSocket();
+        datagramSocket.setSoTimeout(5000);
 
         System.out.println("===== Client started! Server on " + address + ":" + port + " =====");
     }
@@ -38,7 +37,10 @@ public class NetworkProvider {
             objectOutputStream = new ObjectOutputStream(out);
             objectOutputStream.writeObject(request);
 
-            datagramChannel.send(ByteBuffer.wrap(out.toByteArray()), socketAddress);
+            InetAddress host = InetAddress.getLocalHost();
+            DatagramPacket datagramPacket = new DatagramPacket(out.toByteArray(), out.size(), host, port);
+
+            datagramSocket.send(datagramPacket);
 
         } catch (IOException e) {
 
@@ -46,6 +48,7 @@ public class NetworkProvider {
 
         } finally {
             try {
+                assert objectOutputStream != null;
                 objectOutputStream.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -60,36 +63,20 @@ public class NetworkProvider {
 
         ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
+        DatagramPacket datagramPacket = new DatagramPacket(buffer.array(), buffer.array().length);
+
         try {
-
-            SocketAddress address = null;
-
-            int i = 0;
-            while (address == null) {
-                address = datagramChannel.receive(buffer);
-
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
-                }
-
-                i++;
-                if (i % 200 == 0) {
-                    System.out.println("Server is down, try again later...");
-                    return null;
-                }
-                if (i % 40 == 0) {
-                    System.out.println("Waiting for the server...");
-                }
-            }
+            datagramSocket.receive(datagramPacket);
 
             ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.array()));
             response = (Response) objectInputStream.readObject();
 
             return response;
+        }
 
-        } catch (Exception e) {
+        catch (IOException ignored) {}
+
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
 

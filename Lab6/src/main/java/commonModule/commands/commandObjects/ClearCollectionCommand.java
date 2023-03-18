@@ -1,10 +1,10 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.collectionClasses.HumanBeing;
 import commonModule.dataStructures.Response;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -14,6 +14,8 @@ import java.util.Map;
  * The class extends the abstract class "Command"
  */
 public class ClearCollectionCommand extends CommandTemplate implements CommandWithResponse {
+
+    public ClearCollectionCommand() {}
 
     /**
      Constructor for ClearCollectionCommand class.

@@ -1,8 +1,8 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.io.fileIO.out.HumanBeingXMLWriter;
-import server.commands.CommandTemplate;
+import commonModule.commands.CommandTemplate;
 
 /**
  * The SaveCollectionToFileCommand class extends the Command class.

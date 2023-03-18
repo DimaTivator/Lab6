@@ -1,7 +1,13 @@
-package commonModule.collectionManagement;
+package server.collectionManagement;
 
+import commonModule.auxiliaryClasses.ConsoleColors;
 import commonModule.collectionClasses.HumanBeing;
+import commonModule.io.fileIO.out.HumanBeingXMLWriter;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -19,6 +25,8 @@ public class CollectionManager {
      */
     private final java.time.LocalDate creationDate;
 
+    private HumanBeingXMLWriter humanBeingXMLWriter;
+
     /**
      * The collection of {@link HumanBeing} objects.
      */
@@ -29,6 +37,7 @@ public class CollectionManager {
      */
     public CollectionManager() {
         creationDate = java.time.LocalDate.now();
+        humanBeingXMLWriter = new HumanBeingXMLWriter();
     }
 
     /**
@@ -56,5 +65,25 @@ public class CollectionManager {
      */
     public void setCollection(LinkedHashMap<Long, HumanBeing> collection) {
         data = collection;
+    }
+
+
+    public void save(String filePath) {
+
+        System.out.println("LOLOOLOOLOOL");
+        Path path = Paths.get(filePath);
+
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path.getParent()); // Create directories if they don't exist
+                Files.createFile(path); // Create the file
+
+                humanBeingXMLWriter.writeData(data, filePath);
+
+                System.out.println(ConsoleColors.PURPLE + "Done!" + ConsoleColors.RESET);
+            } catch (IOException e) {
+                System.out.println(ConsoleColors.RED + "Some troubles with creating file to save data :(" + ConsoleColors.RESET);
+            }
+        }
     }
 }

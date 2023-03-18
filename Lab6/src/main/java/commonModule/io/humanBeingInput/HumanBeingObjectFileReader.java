@@ -1,6 +1,7 @@
 package commonModule.io.humanBeingInput;
 
 import commonModule.collectionClasses.*;
+import commonModule.exceptions.InvalidCoordinatesException;
 import commonModule.io.fileIO.in.FileReader;
 import commonModule.exceptions.InvalidInputException;
 
@@ -82,7 +83,7 @@ public class HumanBeingObjectFileReader extends FileReader<HumanBeing> {
      *
      * @return a `HumanBeing` object created from data read from a file
      */
-    public HumanBeing readHumanBeingFromFile() throws Exception {
+    public HumanBeing readHumanBeingFromFile() throws InvalidInputException, InvalidCoordinatesException {
 
         HumanBeing humanBeing = new HumanBeing();
 

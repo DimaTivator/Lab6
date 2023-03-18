@@ -14,11 +14,14 @@ public class NetworkProvider {
 
     private DatagramChannel datagramChannel;
 
-    private DatagramSocket serverSocket;
+    private final DatagramSocket serverSocket;
 
     public NetworkProvider(int port) throws IOException {
         datagramChannel = DatagramChannel.open();
+        // datagramChannel.configureBlocking(false);
+
         serverSocket = datagramChannel.socket();
+        serverSocket.setSoTimeout(100);
         serverSocket.bind(new InetSocketAddress(port));
     }
 
@@ -45,7 +48,9 @@ public class NetworkProvider {
 
             return request;
 
-        } catch (Exception e) {
+        } catch (IOException ignored) {}
+
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -54,12 +59,11 @@ public class NetworkProvider {
 
     public void send(Response response, SocketAddress client) {
 
-        ObjectOutputStream objectOutputStream = null;
+        // ObjectOutputStream objectOutputStream = null;
 
-        try {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(out)) {
 
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            objectOutputStream = new ObjectOutputStream(out);
             objectOutputStream.writeObject(response);
 
             DatagramPacket responsePacket = new DatagramPacket(out.toByteArray(), out.toByteArray().length);
@@ -69,13 +73,6 @@ public class NetworkProvider {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-
-        } finally {
-            try {
-                objectOutputStream.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 }

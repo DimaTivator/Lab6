@@ -1,13 +1,13 @@
-package server.commands.commandObjects;
+package commonModule.commands.commandObjects;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
-import commonModule.collectionManagement.CollectionManager;
+import server.collectionManagement.CollectionManager;
 import commonModule.dataStructures.Response;
 import commonModule.exceptions.EmptyCollectionException;
 import commonModule.collectionClasses.Car;
 import commonModule.collectionClasses.HumanBeing;
-import server.commands.CommandTemplate;
-import server.commands.CommandWithResponse;
+import commonModule.commands.CommandTemplate;
+import commonModule.commands.CommandWithResponse;
 
 import java.util.Map;
 
@@ -26,6 +26,8 @@ public class FilterLessThanCarCommand extends CommandTemplate implements Command
     public FilterLessThanCarCommand(CollectionManager collectionManager) {
         super(collectionManager);
     }
+
+    public FilterLessThanCarCommand() {}
 
     /**
      * Executes the command to filter the elements of the collection
