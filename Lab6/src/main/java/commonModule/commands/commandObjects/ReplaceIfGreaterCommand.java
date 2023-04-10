@@ -51,6 +51,8 @@ public class ReplaceIfGreaterCommand extends CommandTemplate implements CommandW
             value.updateId();
             data.put(key, value);
         }
+
+        getCollectionManager().sort();
     }
 
     @Override

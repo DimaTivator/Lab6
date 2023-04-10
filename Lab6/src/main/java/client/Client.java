@@ -8,42 +8,31 @@ import commonModule.dataStructures.Triplet;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.io.consoleIO.CommandParser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
-public class Main {
+public class Client {
 
     public static void main(String[] args) {
 
         InetAddress address = null;
         int port = 0;
 
-        if (args.length == 2) {
+        try {
+            address = InetAddress.getByName(args[0]);
+        } catch (UnknownHostException e) {
+            System.out.println(ConsoleColors.RED + "Unknown host. Please try again" + ConsoleColors.RESET);
+            System.exit(0);
+        }
 
-            try {
-                address = InetAddress.getByName(args[0]);
-            } catch (UnknownHostException e) {
-                System.out.println("Unknown host. Please try again");
-            }
-
-            try {
-                port = Integer.parseInt(args[1]);
-            } catch (NumberFormatException e) {
-                System.out.println(ConsoleColors.RED + "Port must be a number. Please try again" + ConsoleColors.RESET);
-                System.exit(0);
-            }
-
-        } else {
-            System.out.println(ConsoleColors.RED + "You should enter server ip and port in program arguments" + ConsoleColors.RESET);
+        try {
+            port = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            System.out.println(ConsoleColors.RED + "Port must be a number. Please try again" + ConsoleColors.RESET);
             System.exit(0);
         }
 
@@ -58,6 +47,26 @@ public class Main {
             NetworkProvider networkProvider = new NetworkProvider(address.getHostAddress(), port);
             CommandParser commandParser = new CommandParser();
             ScriptExecutor scriptExecutor = new ScriptExecutor();
+
+
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].equals("-exec")) {
+                    if (i + 1 < args.length) {
+                        String filePath = args[i + 1];
+                        Path path = Paths.get(filePath);
+                        if (Files.exists(path)) {
+                            scriptExecutor.executeScript(filePath, networkProvider);
+                        } else {
+                            System.out.printf(ConsoleColors.RED + "File %s does not exists!\n" + ConsoleColors.RESET, filePath);
+                            System.exit(0);
+                        }
+                    } else {
+                        System.out.println(ConsoleColors.RED + "You should write a path to the script after `-exec`" + ConsoleColors.RESET);
+                        System.exit(0);
+                    }
+                }
+            }
+
 
             System.out.println("If you want to see the list of available commands, enter 'help'");
 

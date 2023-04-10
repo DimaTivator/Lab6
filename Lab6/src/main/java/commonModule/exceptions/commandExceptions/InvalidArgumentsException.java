@@ -20,6 +20,6 @@ public class InvalidArgumentsException extends Exception {
      * @param message Custom error message.
      */
     public InvalidArgumentsException(String message) {
-        super(ConsoleColors.RED + message + ConsoleColors.RESET);
+        super(message);
     }
 }

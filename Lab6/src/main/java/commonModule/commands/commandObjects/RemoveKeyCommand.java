@@ -43,6 +43,8 @@ public class RemoveKeyCommand extends CommandTemplate implements CommandWithResp
     public void execute() {
         Map<Long, HumanBeing> data = getCollectionManager().getCollection();
         data.remove(Long.parseLong(getArgs()[0]));
+
+        getCollectionManager().sort();
     }
 
     @Override

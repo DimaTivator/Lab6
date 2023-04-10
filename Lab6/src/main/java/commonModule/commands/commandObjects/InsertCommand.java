@@ -53,6 +53,8 @@ public class InsertCommand extends CommandTemplate implements CommandWithRespons
         HumanBeing value = (HumanBeing) getValue();
         data.put(key, value);
         value.updateId();
+
+        getCollectionManager().sort();
     }
 
     @Override

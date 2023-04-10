@@ -7,6 +7,7 @@ import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
 import commonModule.collectionClasses.HumanBeing;
 import commonModule.commands.CommandWithResponse;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -63,6 +64,8 @@ public class UpdateCommand extends CommandTemplate implements CommandWithRespons
                 break;
             }
         }
+
+        getCollectionManager().sort();
     }
 
     @Override

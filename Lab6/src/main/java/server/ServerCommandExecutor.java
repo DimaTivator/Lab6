@@ -2,6 +2,7 @@ package server;
 
 import commonModule.dataStructures.Pair;
 import commonModule.exceptions.commandExceptions.InvalidArgumentsException;
+import commonModule.exceptions.commandExceptions.NoSuchCommandException;
 import commonModule.io.consoleIO.ConfirmationReader;
 import server.collectionManagement.CollectionManager;
 
@@ -15,7 +16,6 @@ public class ServerCommandExecutor {
 
     {
         confirmationReader = new ConfirmationReader();
-        clientsDataPath = "src/main/java/server/clientsData/data.xml";
     }
 
 
@@ -32,7 +32,7 @@ public class ServerCommandExecutor {
     }
 
 
-    public void execute(Pair<String, String[]> command) throws InvalidArgumentsException {
+    public void execute(Pair<String, String[]> command) throws InvalidArgumentsException, NoSuchCommandException {
 
         String commandName = command.getFirst();
         String[] commandArgs = command.getSecond();
@@ -45,6 +45,7 @@ public class ServerCommandExecutor {
 
             String confirmation = confirmationReader.readObjectFromConsole();
             if (confirmation.equals("Y")) {
+                System.out.println("Bye!");
                 System.exit(1);
             }
         } else if (commandName.equals("save")) {
@@ -57,6 +58,11 @@ public class ServerCommandExecutor {
             else {
                 throw new InvalidArgumentsException("Command save takes 0 or 1 arguments!\n");
             }
+
+            System.out.println("Done!");
+        }
+        else {
+            throw new NoSuchCommandException("Invalid command name");
         }
     }
 }

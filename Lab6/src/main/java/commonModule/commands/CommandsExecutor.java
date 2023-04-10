@@ -3,7 +3,6 @@ package commonModule.commands;
 import commonModule.commands.commandObjects.*;
 import server.collectionManagement.CollectionManager;
 import server.collectionManagement.CollectionPrinter;
-import server.collectionManagement.CollectionSaver;
 import commonModule.dataStructures.Response;
 import commonModule.dataStructures.Triplet;
 import commonModule.exceptions.ScriptsRecursionException;
@@ -32,44 +31,6 @@ public class CommandsExecutor {
      * The `collectionManager` object is used for managing the collection.
      */
     private final CollectionManager collectionManager;
-
-//    private final ArrayList<String> objectCommandsList = new ArrayList<>();
-//
-//    private final ArrayList<String> lineArgCommands = new ArrayList<>();
-//
-//    private final Map<String, Command> commandsTable = new HashMap<>();
-//
-//    private void fillCommandLists() {
-//
-//        ArrayList<String> humanBeingCommandsList = CommandParser.getHumanBeingCommandsList();
-//        objectCommandsList.addAll(humanBeingCommandsList);
-//        objectCommandsList.add("filter_less_than_car");
-//
-//        lineArgCommands.add("remove_key");
-//        lineArgCommands.add("execute_script");
-//        lineArgCommands.add("remove_greater_key");
-//        lineArgCommands.add("count_less_than_impact_speed");
-//        lineArgCommands.add("insert");
-//        lineArgCommands.add("update");
-//        lineArgCommands.add("replace_if_greater");
-//
-//        commandsTable.put("help", new HelpCommand(collectionPrinter));
-//        commandsTable.put("info", new InfoCommand(collectionManager, collectionPrinter));
-//        commandsTable.put("show", new ShowCommand(collectionManager));
-//        commandsTable.put("insert", new InsertCommand(collectionManager));
-//        commandsTable.put("update", new UpdateCommand(collectionManager));
-//        commandsTable.put("remove_key", new RemoveKeyCommand(collectionManager));
-//        commandsTable.put("clear", new ClearCollectionCommand(collectionManager));
-//        commandsTable.put("save", new SaveCollectionToFileCommand(collectionManager));
-//        commandsTable.put("execute_script", new ExecuteScriptCommand(collectionManager, collectionPrinter, this));
-//        commandsTable.put("remove_lower", new RemoveLowerCommand(collectionManager));
-//        commandsTable.put("replace_if_greater", new ReplaceIfGreaterCommand(collectionManager));
-//        commandsTable.put("remove_greater_key", new RemoveGreaterKeyCommand(collectionManager));
-//        commandsTable.put("count_less_than_impact_speed", new CountLessThanImpactSpeedCommand(collectionManager));
-//        commandsTable.put("filter_less_than_car", new FilterLessThanCarCommand(collectionManager));
-//        commandsTable.put("print_unique_mood", new PrintUniqueMoodCommand(collectionManager));
-//        commandsTable.put("exit", new ExitCommand());
-//    }
 
 
     /**

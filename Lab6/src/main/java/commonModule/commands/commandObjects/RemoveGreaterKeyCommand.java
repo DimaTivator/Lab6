@@ -66,6 +66,8 @@ public class RemoveGreaterKeyCommand extends CommandTemplate implements CommandW
         });
 
         keySet.forEach(data::remove);
+
+        getCollectionManager().sort();
     }
 
     @Override

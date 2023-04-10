@@ -2,14 +2,14 @@ package server.collectionManagement;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
 import commonModule.collectionClasses.HumanBeing;
+import commonModule.exceptions.EmptyCollectionException;
 import commonModule.io.fileIO.out.HumanBeingXMLWriter;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * CollectionManager is a class that stores a collection of {@link HumanBeing} objects.
@@ -19,6 +19,14 @@ import java.util.Map;
  */
 
 public class CollectionManager {
+
+    public static class Comparator implements java.util.Comparator<HumanBeing> {
+
+        @Override
+        public int compare(HumanBeing humanBeing1, HumanBeing humanBeing2) {
+            return humanBeing1.getName().compareTo(humanBeing2.getName());
+        }
+    }
 
     /**
      * The creation date of the collection.
@@ -63,14 +71,16 @@ public class CollectionManager {
      *
      * @param collection the collection to set.
      */
-    public void setCollection(LinkedHashMap<Long, HumanBeing> collection) {
+    public void setCollection(LinkedHashMap<Long, HumanBeing> collection) throws EmptyCollectionException {
+        if (collection == null) {
+            throw new EmptyCollectionException();
+        }
         data = collection;
     }
 
 
     public void save(String filePath) {
 
-        System.out.println("LOLOOLOOLOOL");
         Path path = Paths.get(filePath);
 
         if (!Files.exists(path)) {
@@ -78,12 +88,21 @@ public class CollectionManager {
                 Files.createDirectories(path.getParent()); // Create directories if they don't exist
                 Files.createFile(path); // Create the file
 
-                humanBeingXMLWriter.writeData(data, filePath);
-
-                System.out.println(ConsoleColors.PURPLE + "Done!" + ConsoleColors.RESET);
             } catch (IOException e) {
                 System.out.println(ConsoleColors.RED + "Some troubles with creating file to save data :(" + ConsoleColors.RESET);
             }
         }
+        humanBeingXMLWriter.writeData(data, filePath);
+    }
+
+    public void sort() {
+        HashMap<Long, HumanBeing> sortedMap = new LinkedHashMap<>();
+
+        data.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(new CollectionManager.Comparator()))
+                .forEachOrdered(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
+
+        data.clear();
+        data.putAll(sortedMap);
     }
 }

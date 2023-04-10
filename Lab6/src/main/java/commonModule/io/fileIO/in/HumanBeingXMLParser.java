@@ -1,12 +1,14 @@
 package commonModule.io.fileIO.in;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import commonModule.auxiliaryClasses.ConsoleColors;
 import commonModule.collectionClasses.*;
@@ -16,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * The class HumanBeingXMLParser extends the Parser class and reads data from a specified XML file
@@ -29,27 +32,18 @@ public class HumanBeingXMLParser extends Parser<LinkedHashMap<Long, HumanBeing>>
      * @param fileName the name of the XML file
      * @return a Document object containing the data from the XML file
      */
-    public Document readData(String fileName) {
+    public Document readData(String fileName) throws ParserConfigurationException, IOException, SAXException {
 
-        try {
-            // Read XML file and create a Document object
-            File inputFile = new File(fileName);
+        // Read XML file and create a Document object
+        File inputFile = new File(fileName);
 
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-            Document document = documentBuilder.parse(inputFile);
-            document.getDocumentElement().normalize();
+        Document document = documentBuilder.parse(inputFile);
+        document.getDocumentElement().normalize();
 
-            return document;
-
-        } catch (Exception e) {
-            System.out.println(ConsoleColors.RED_BOLD + "Some troubles with xml file :(" + ConsoleColors.RESET);
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
-
-        return null;
+        return document;
     }
 
     /**
@@ -126,6 +120,7 @@ public class HumanBeingXMLParser extends Parser<LinkedHashMap<Long, HumanBeing>>
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED_BOLD + "Some troubles with xml file :(" + ConsoleColors.RESET);
             System.out.println(e.getMessage());
+            return null;
         }
 
         return humanBeings;

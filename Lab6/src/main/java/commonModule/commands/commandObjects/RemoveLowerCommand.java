@@ -55,6 +55,8 @@ public class RemoveLowerCommand extends CommandTemplate implements CommandWithRe
         });
 
         keySet.forEach(data::remove);
+
+        getCollectionManager().sort();
     }
 
     @Override

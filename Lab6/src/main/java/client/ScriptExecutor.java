@@ -55,17 +55,19 @@ public class ScriptExecutor {
                         throw new ScriptsRecursionException("You should not call execute_script recursively!");
                     }
                     usedScripts.add(args[0]);
+                    executeScript(args[0], networkProvider);
                 }
+                else {
+                    request = new Request(commandParser.pack(parsedCommand));
+                    networkProvider.send(request);
 
-                request = new Request(commandParser.pack(parsedCommand));
-                networkProvider.send(request);
+                    Response response = networkProvider.receive();
 
-                Response response = networkProvider.receive();
-
-                if (response == null) {
-                    System.out.println(ConsoleColors.RED + "Server is down :(\nPlease try again later" + ConsoleColors.RESET);
-                } else {
-                    System.out.println(response.getOutput());
+                    if (response == null) {
+                        System.out.println(ConsoleColors.RED + "Server is down :(\nPlease try again later" + ConsoleColors.RESET);
+                    } else {
+                        System.out.println(response.getOutput());
+                    }
                 }
 
             } catch (ScriptsRecursionException | NoSuchCommandException | InvalidArgumentsException |

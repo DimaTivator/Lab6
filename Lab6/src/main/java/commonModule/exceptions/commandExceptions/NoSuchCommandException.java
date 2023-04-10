@@ -20,6 +20,6 @@ public class NoSuchCommandException extends Exception {
      * @param message Custom error message.
      */
     public NoSuchCommandException(String message) {
-        super(ConsoleColors.RED + message + ConsoleColors.RESET);
+        super(message);
     }
 }
